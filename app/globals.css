@@ -1,0 +1,334 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Viral Inbound design tokens
+   Built on the existing monochrome brand (black / white, Inter),
+   refined with a warm paper tone and a single signal accent.
+------------------------------------------------------------------- */
+:root {
+  --ink: #0b0b0c;
+  --ink-2: #1b1b1e;
+  --ink-3: #2a2a2f;
+  --paper: #f5f4f0;
+  --paper-2: #ecebe5;
+  --white: #ffffff;
+  --muted: #5d5d63;
+  --muted-dark: #9a9aa2;
+  --line: rgba(11, 11, 12, 0.1);
+  --line-strong: rgba(11, 11, 12, 0.18);
+  --line-dark: rgba(255, 255, 255, 0.1);
+  --signal: #ff4f1f;
+  --signal-soft: rgba(255, 79, 31, 0.12);
+  --ok: #1f9d6b;
+
+  --header-h: 76px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-muted: var(--muted);
+  --color-muted-dark: var(--muted-dark);
+  --color-signal: var(--signal);
+  --color-ok: var(--ok);
+  --color-line: var(--line);
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), var(--font-body), ui-sans-serif, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--signal);
+  color: var(--white);
+}
+
+:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@layer components {
+/* ---------- Typography ---------- */
+.display {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 0.98;
+}
+
+.h-section {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  font-size: clamp(2.1rem, 4.6vw, 4rem);
+  text-wrap: balance;
+}
+
+.lede {
+  font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+  line-height: 1.55;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.dark .lede {
+  color: var(--muted-dark);
+}
+
+.eyebrow {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  background: var(--signal);
+  border-radius: 1px;
+}
+
+.dark .eyebrow {
+  color: var(--muted-dark);
+}
+
+.mono {
+  font-family: var(--font-mono), monospace;
+}
+
+/* ---------- Surfaces ---------- */
+.dark {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.grid-paper {
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: -1px -1px;
+}
+
+.dark .grid-paper,
+.grid-paper-dark {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.fade-mask-b {
+  mask-image: linear-gradient(to bottom, #000 60%, transparent);
+}
+
+.container-x {
+  width: 100%;
+  max-width: 1320px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+@media (min-width: 768px) {
+  .container-x {
+    padding-inline: 40px;
+  }
+}
+
+.section-y {
+  padding-block: clamp(88px, 11vw, 160px);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  height: 52px;
+  padding-inline: 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  transition:
+    background-color 0.25s var(--ease-out),
+    color 0.25s var(--ease-out),
+    border-color 0.25s var(--ease-out),
+    transform 0.25s var(--ease-out);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background: var(--signal);
+}
+
+.btn-ghost {
+  border: 1px solid var(--line-strong);
+  color: var(--ink);
+}
+
+.btn-ghost:hover {
+  border-color: var(--ink);
+  background: var(--white);
+}
+
+.dark .btn-primary {
+  background: var(--white);
+  color: var(--ink);
+}
+
+.dark .btn-primary:hover {
+  background: var(--signal);
+  color: var(--white);
+}
+
+.dark .btn-ghost {
+  border-color: rgba(255, 255, 255, 0.22);
+  color: var(--white);
+}
+
+.dark .btn-ghost:hover {
+  border-color: var(--white);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.btn .arrow {
+  transition: transform 0.3s var(--ease-out);
+}
+
+.btn:hover .arrow {
+  transform: translateX(3px);
+}
+
+}
+
+/* ---------- Motion primitives ---------- */
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+
+.flow-line {
+  stroke-dasharray: 4 8;
+  animation: dash-flow 1.6s linear infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+.pulse-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pulse-ring 2.4s var(--ease-out) infinite;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee 48s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.caret {
+  animation: blink 1s steps(1) infinite;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Reduced motion: keep every piece of content, drop the movement. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .flow-line {
+    stroke-dasharray: none;
+  }
+
+  .marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    width: 100% !important;
+    justify-content: center;
+  }
+
+  .marquee-dup {
+    display: none !important;
+  }
+}
